@@ -1,2 +1,2 @@
 pyfritzhome
-p3exporter
+p3exporter >= 1.2.0

@@ -14,4 +14,5 @@ pytest-replay
 pytest-vcr
 pytest-xdist
 PyYAML
-git+https://github.com/codeaffen/p3exporter.git@develop#p3exporter
+p3exporter >= 1.2.0
+git+https://github.com/cmeissner/python-fritzhome.git@feature/65-disable-ssl-verification

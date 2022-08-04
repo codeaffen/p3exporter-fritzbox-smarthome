@@ -18,13 +18,14 @@ class SmarthomeCollector(CollectorBase):
         self.username = self.opts.pop("username", "none")
         self.password = self.opts.pop("password", "none")
         self.hostname = self.opts.pop("hostname", "https://frtiz.box")
+        self.ssl_verify = self.opts.pop("ssl_verify", True)
         self.device_types = self.opts.pop("device_types", [])
 
         if not self.hostname.startswith('https://') and not self.hostname.startswith('http://'):
             self.hostname = 'https://' + self.hostname
 
         try:
-            self._fritzhome = Fritzhome(host=self.hostname, user=self.username, password=self.password)
+            self._fritzhome = Fritzhome(host=self.hostname, user=self.username, password=self.password, ssl_verify=self.ssl_verify)
             self._fritzhome.login()
         except: # noqa E722
             raise LoginError(self.username)
