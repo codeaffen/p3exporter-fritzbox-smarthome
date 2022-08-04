@@ -1,0 +1,17 @@
+wheel
+setuptools
+bumpversion
+changelog-cli
+coverage
+flake8
+flake8-colors
+flake8-docstrings
+flask # pyup: ignore
+twine
+pyfritzhome
+pytest
+pytest-replay
+pytest-vcr
+pytest-xdist
+PyYAML
+git+https://github.com/codeaffen/p3exporter.git@develop#p3exporter

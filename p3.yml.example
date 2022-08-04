@@ -1,0 +1,7 @@
+exporter_name: "Python prammable Prometheus exporter /w FritzBox collector"
+collectors:
+  - p3eFritzBox.collector.smarthome
+collector_opts:
+  thermostat:
+    username: smarthome
+    password: v3rys3cr3t
