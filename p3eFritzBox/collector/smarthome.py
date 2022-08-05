@@ -17,7 +17,7 @@ class SmarthomeCollector(CollectorBase):
 
         self.username = self.opts.pop("username", "none")
         self.password = self.opts.pop("password", "none")
-        self.hostname = self.opts.pop("hostname", "https://frtiz.box")
+        self.hostname = self.opts.pop("hostname", "https://fritz.box")
         self.ssl_verify = self.opts.pop("ssl_verify", True)
         self.device_types = self.opts.pop("device_types", [])
 
