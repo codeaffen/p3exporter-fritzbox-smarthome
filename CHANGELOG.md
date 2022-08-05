@@ -3,8 +3,8 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Changelog](http://keepachangelog.com/).
 
-## Unreleased
 
+## Unreleased
 ---
 
 ### New
@@ -13,9 +13,17 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 
 ### Fixes
 
+### Breaks
+
+
+## 1.0.1 - (2022-08-05)
+
+---
+
+### Fixes
+
 * fix typo for default hostname
 
-### Breaks
 
 ## 1.0.0 - (2022-08-04)
 
