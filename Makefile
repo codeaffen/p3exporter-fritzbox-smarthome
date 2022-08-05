@@ -44,6 +44,10 @@ check: dist
 publish: check
 	$(TWINE_CMD) upload $(TWINE_OPTIONS) dist/*
 
+release-%:
+	bumpversion $*
+	changelog release --$*
+
 clean:
 	rm -Rf docs/{build,_build} {build,dist} *.egg-info coverage.xml .pytest_cache
 	find . -name '*.pyc' -exec rm -f {} +
