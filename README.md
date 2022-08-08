@@ -15,7 +15,7 @@ Tested with:
 
 You need to install `p3exporter` first. It is available on [pypi](https://pypi.org/project/p3exporter/) so you can use `pip` to install the exporter and run it locally.
 
-```text
+```shell
 pip install p3exporter
 ```
 
@@ -23,13 +23,17 @@ Now you need to install `p3exporter-fritzbox-smarthome`. Choose one method menti
 
 ### Install from pypi.org
 
-***Not yet available***
+We also provide a pypi.org package. You can install the collector with the following command:
+
+```shell
+pip install p3exporter-fritzbox-smarthome
+```
 
 ### Install from repository
 
 You can install it from a local clone of our [github repository](https://github.com/codeaffen/p3exporter-fritzbox-smarthome).
 
-```text
+```shell
 $ git clone https://github.com/codeaffen/p3exporter-fritzbox-smarthome.git
 Cloning into 'p3exporter-fritzbox-smarthome'...
 ...
@@ -42,7 +46,7 @@ $ pip install -e .
 To start `p3exporter` you need a valid `p3.yml` you can either edit an existing one or take the example from this repository.
 
 ```shell
-cp p3.yml.example /tmp/p3.yml
+curl --silent https://raw.githubusercontent.com/codeaffen/p3exporter-fritzbox-smarthome/develop/p3.yml.example --output ~/tmp/p3.yml
 ```
 
 If you edit an existing `p3.yml` add the following content to activate the collector.
@@ -77,4 +81,3 @@ hostname | https://fritz.box | | Hostname of FritzBox to connect to. Protocol ca
 device_types | | | List of device type to enable. If List is empty all device types are activated. Possible values are:<br/><ul><li>temperature_sensor</li></ul>
 ssl_verify | True | | Set to `True` to disable ssl certificate verfication. This is useful in case of using self signed certificates.<br/>**Note**: To use this parameter `pyfritzhome` from github is needed as the ssl_verify parameter is not yet available in pypi package. For details use `requirements.txt`.
 <!-- markdownlint-enable MD033 MD034 -->
-
