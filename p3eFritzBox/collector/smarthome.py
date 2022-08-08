@@ -35,16 +35,28 @@ class SmarthomeCollector(CollectorBase):
         devices = self._fritzhome.get_devices()
 
         # thermostats
-        if 'temperature_sensor' in self.device_types or self.device_types == []:
-            for _device in devices:
-                if _device.has_temperature_sensor:
-                    dev = {'ain': _device.ain, 'device': _device.name, 'type': _device.productname, 'has_thermostat': str(_device.has_thermostat)}
-                    fb_dev_info = InfoMetricFamily('p3e_fb_temperator_sensor', 'FritzBox device information')
-                    fb_dev_info.add_metric(labels=dev.keys(), value=dev)
-                    yield fb_dev_info
+        for _device in devices:
+            dev = dict(
+                ain=_device.ain,
+                device=_device.name,
+                manufacturer=_device.manufacturer,
+                type=_device.productname,
+                has_thermostat=str(_device.has_thermostat),
+                has_temperature_sendor=str(_device.has_temperature_sensor),
+                has_switch=str(_device.has_switch)
+            )
+            fb_dev_info = InfoMetricFamily('p3e_fb_temperator_sensor', 'FritzBox device information')
+            fb_dev_info.add_metric(labels=dev.keys(), value=dev)
+            yield fb_dev_info
 
-                    fb_dev_gauge = GaugeMetricFamily('p3e_fb_temperatur_sensor', 'Current temperature', labels=['ain', 'device', 'temperature'])
-                    fb_dev_gauge.add_metric([_device.ain, _device.name, 'actual'], _device.actual_temperature)
-                    fb_dev_gauge.add_metric([_device.ain, _device.name, 'comfort'], _device.comfort_temperature)
-                    fb_dev_gauge.add_metric([_device.ain, _device.name, 'eco'], _device.eco_temperature)
-                    yield fb_dev_gauge
+            if 'temperature_sensor' in self.device_types or self.device_types == [] and _device.has_temperature_sensor:
+                fb_temp_gauge = GaugeMetricFamily('p3e_fb_temperatur_sensor', 'Current and target temperature data', labels=['ain', 'device', 'temperature'])
+                fb_temp_gauge.add_metric([_device.ain, _device.name, 'actual'], _device.actual_temperature)
+                fb_temp_gauge.add_metric([_device.ain, _device.name, 'comfort'], _device.comfort_temperature)
+                fb_temp_gauge.add_metric([_device.ain, _device.name, 'eco'], _device.eco_temperature)
+                yield fb_temp_gauge
+
+            if hasattr(_device, 'battery_level') and hasattr(_device, 'battery_low'):
+                fb_battery_gauge = GaugeMetricFamily('p3e_fb_battery_status', 'Battery level and status', labels=['ain', 'device', 'battery_low'])
+                fb_battery_gauge.add_metric([_device.ain, _device.name, str(_device.battery_low)], _device.battery_level)
+                yield fb_battery_gauge
