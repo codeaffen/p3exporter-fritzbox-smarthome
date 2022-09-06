@@ -64,12 +64,6 @@ doc:
 	sphinx-apidoc -M -f -o docs/plugins/ p3e-fritzbox
 	make -C docs html
 
-test-setup: | tests/vars/server.yml
-	pip install --upgrade -r requirements-dev.txt
-
-tests/vars/server.yml:
-	sed -e "s#~~url~~#$(PHPIPAM_URL)#" -e "s#~~app_id~~#$(PHPIPAM_APPID)#" -e "s#~~username~~#$(PHPIPAM_USERNAME)#" -e "s#~~password~~#$(PHPIPAM_PASSWORD)#" -e "s#~~ssl_verify~~#$(PHPIPAM_VALIDATE_CERTS)#" $@.example > $@
-
 test-all:
 	coverage run -m pytest tests/test_cases/* -v
 
@@ -81,11 +75,6 @@ coverage: test-all
 
 coverage-xml: test-all
 	coverage xml --include 'phpypam/*','phpypam/**/*','tests/**/*'
-
-setup-phpipam: test-setup
-	docker-compose -f tests/docker/docker-compose.yml up -d
-	sleep 30
-	sh tests/docker/setup_database.sh
 
 FORCE:
 
