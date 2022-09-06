@@ -1,6 +1,7 @@
-p3e-fritzbox
-============
+p3eFritzBox
+===========
 
 .. toctree::
    :maxdepth: 4
 
+   p3eFritzBox

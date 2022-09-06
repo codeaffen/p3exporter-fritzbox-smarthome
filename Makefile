@@ -61,7 +61,7 @@ doc-setup:
 
 doc:
 	install -d -m 750 ./docs/plugins
-	sphinx-apidoc -M -f -o docs/plugins/ p3e-fritzbox
+	sphinx-apidoc -M -f -o docs/plugins/ p3eFritzBox
 	make -C docs html
 
 test-all:
