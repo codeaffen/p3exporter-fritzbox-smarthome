@@ -1,3 +1,2 @@
-# pyfritzhome
-git+https://github.com/hthiery/python-fritzhome.git@c4a93af458fcf57a1315904e73ae4aa215838eea
+pyfritzhome
 p3exporter >= 1.2.0
