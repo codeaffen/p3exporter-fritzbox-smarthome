@@ -52,12 +52,22 @@ curl --silent https://raw.githubusercontent.com/codeaffen/p3exporter-fritzbox-sm
 If you edit an existing `p3.yml` add the following content to activate the collector.
 
 ```yaml
+exporter_name: "Python prammable Prometheus exporter /w FritzBox collector"
 collectors:
   - p3eFritzBox.collector.smarthome
 collector_opts:
   smarthome:
-    username: smarthome
-    password: v3rys3cr3t
+    defaults:
+      hostname: https://fb.example.com # use this hostname as default (if never set hostname defaults to 'https://fritz.box')
+      username: smarthome # use this username as default
+      ssl_verify: false # disable ssl certificate verification by default
+    devices:
+      - name: FB@home
+        password: v3rys3cr3t
+      - name: FB@cottage
+        password: 4l5ov3rys3cr3t
+        hostname: https://myfritzbox.example.com
+        ssl_verify: true # enable ssl certificate verification for this device connection
 ```
 
 After that you can start the p3exporter as usual:
@@ -70,14 +80,18 @@ INFO:root:Start exporter, listen on 5876
 
 ## Configuration
 
+To configure this collector you need to create a dict with the connection parameters within the `devices` list.
 There are some parameters avaiable to configure the collector. In the following table all parameters are listed.
 
 <!-- markdownlint-disable MD033 MD034 -->
 Name | Default | Mandatory | Description
 --- | --- | --- | ---
+name  | | device_\<NUM\> | An arbitrary name to identify metrics according the device. If not given it will be generated as seen in default column. `<NUM>` stands for the list index, starting with 1.
 username |  | * | Username used to authenticate against FritzBox
 password |  | * | Password used to authenticate against FritzBox
 hostname | https://fritz.box | | Hostname of FritzBox to connect to. Protocol can be `http` or `https`. If no protocol is given default will be `https`.
 device_types | | | List of device type to enable. If List is empty all device types are activated. Possible values are:<br/><ul><li>temperature_sensor</li></ul>
 ssl_verify | True | | Set to `True` to disable ssl certificate verfication. This is useful in case of using self signed certificates.<br/>**Note**: To use this parameter `pyfritzhome` from github is needed as the ssl_verify parameter is not yet available in pypi package. For details use `requirements.txt`.
 <!-- markdownlint-enable MD033 MD034 -->
+
+All parameters from the table above except `name` can also be defined in `defaults` dict. Parameters defined here will be used as defaults for each device in devices list if the corresponding parameter is not defined there.

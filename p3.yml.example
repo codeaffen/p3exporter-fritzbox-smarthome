@@ -3,7 +3,14 @@ collectors:
   - p3eFritzBox.collector.smarthome
 collector_opts:
   smarthome:
-    username: smarthome
-    password: v3rys3cr3t
-    hostname: https://fritz.box
-    ssl_verify: false
+    defaults:
+      hostname: https://fb.example.com # use this hostname as default (if never set hostname defaults to 'https://fritz.box')
+      username: smarthome # use this username as default
+      ssl_verify: false # disable ssl certificate verification by default
+    devices:
+      - name: FB@home
+        password: v3rys3cr3t
+      - name: FB@cottage
+        password: 4l5ov3rys3cr3t
+        hostname: https://myfritzbox.example.com
+        ssl_verify: true # enable ssl certificate verification for this device connection
