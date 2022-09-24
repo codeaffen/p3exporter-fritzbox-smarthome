@@ -49,9 +49,21 @@ class SmarthomeCollector(CollectorBase):
         # top-level connection parameters are deprecated since 1.1.0 and will be removed in 1.2.0
         if 'username' in self.opts or 'password' in self.opts or 'hostname' in self.opts or 'device_types' in self.opts:
             logging.warn('Top-level connection parameters are deprecated and will be removed in version 1.2.0')
-            _legacy_device = dict(name='legacy_device', username=self.opts.pop('username', None), password=self.opts.pop('password', None), hostname=self.opts.pop("hostname", "https://fritz.box"), ssl_verify=self.opts.pop('ssl_verify', True), device_types=self.opts.pop('device_types', []))
+            _legacy_device = dict(
+                name='legacy_device',
+                username=self.opts.pop('username', None),
+                password=self.opts.pop('password', None),
+                hostname=self.opts.pop("hostname", "https://fritz.box"),
+                ssl_verify=self.opts.pop('ssl_verify', True),
+                device_types=self.opts.pop('device_types', [])
+            )
             try:
-                _legacy_device['conn'] = Fritzhome(host=_legacy_device['hostname'], user=_legacy_device['username'], password=_legacy_device['password'], ssl_verify=_legacy_device['ssl_verify'])
+                _legacy_device['conn'] = Fritzhome(
+                    host=_legacy_device['hostname'],
+                    user=_legacy_device['username'],
+                    password=_legacy_device['password'],
+                    ssl_verify=_legacy_device['ssl_verify']
+                )
                 _legacy_device['conn'].login()
             except: # noqa E722
                 raise LoginError(_legacy_device['username'])
@@ -79,13 +91,21 @@ class SmarthomeCollector(CollectorBase):
                 yield fb_dev_info
 
                 if 'temperature_sensor' in device['device_types'] or device['device_types'] == [] and _device.has_temperature_sensor:
-                    fb_temp_gauge = GaugeMetricFamily('p3e_fb_temperatur_sensor', 'Current and target temperature data', labels=['ain', 'device', 'fb_name', 'temperature'])
+                    fb_temp_gauge = GaugeMetricFamily(
+                        'p3e_fb_temperatur_sensor',
+                        'Current and target temperature data',
+                        labels=['ain', 'device', 'fb_name', 'temperature']
+                    )
                     fb_temp_gauge.add_metric([_device.ain, _device.name, dev['fb_name'], 'actual'], _device.actual_temperature)
                     fb_temp_gauge.add_metric([_device.ain, _device.name, dev['fb_name'], 'comfort'], _device.comfort_temperature)
                     fb_temp_gauge.add_metric([_device.ain, _device.name, dev['fb_name'], 'eco'], _device.eco_temperature)
                     yield fb_temp_gauge
 
                 if hasattr(_device, 'battery_level') and hasattr(_device, 'battery_low'):
-                    fb_battery_gauge = GaugeMetricFamily('p3e_fb_battery_status', 'Battery level and status', labels=['ain', 'device', 'fb_name', 'battery_low'])
+                    fb_battery_gauge = GaugeMetricFamily(
+                        'p3e_fb_battery_status',
+                        'Battery level and status',
+                        labels=['ain', 'device', 'fb_name', 'battery_low']
+                    )
                     fb_battery_gauge.add_metric([_device.ain, _device.name, dev['fb_name'], str(_device.battery_low)], _device.battery_level)
                     yield fb_battery_gauge
