@@ -8,13 +8,22 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 ---
 
 ### New
-* Add gauge for battery status and level
 
 ### Changes
 
 ### Fixes
 
 ### Breaks
+
+
+## 1.1.0 - (2022-09-24)
+
+---
+
+### New
+
+* Implement multi device support - [#8](https://github.com/codeaffen/p3exporter-fritzbox-smarthome/pull/8)
+* Add gauge for battery status and level
 
 
 ## 1.0.1 - (2022-08-05)
