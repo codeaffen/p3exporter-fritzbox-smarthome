@@ -1,5 +1,7 @@
 # p3exporter collector module for FritzBox smarthome data
 
+## ***This Repository was archived and can be used as starting point of an own p3exporter collector development***
+
 [![PyPI version](https://badge.fury.io/py/p3exporter-fritzbox-smarthome.svg)](https://badge.fury.io/py/p3exporter-fritzbox-smarthome)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/56c57d4c4dbb440a944a8fbd5f5533a8)](https://www.codacy.com/gh/codeaffen/p3exporter-fritzbox-smarthome/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codeaffen/p3exporter-fritzbox-smarthome&amp;utm_campaign=Badge_Grade)
 
